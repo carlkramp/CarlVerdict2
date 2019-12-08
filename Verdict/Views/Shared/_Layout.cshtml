@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Verdict</title>
+    <link rel="stylesheet" href="~/css/site.css?v={random number/string}" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:300,400,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="navbar">
+                <ul class="navbar-menu">
+                    <li class="navbar-menu__item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="navbar-menu__item">
+                        <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="navbar-menu__item">
+                        <a asp-area="" asp-controller="Home" asp-action="Collection">Collection</a>
+                    </li>
+                    <li class="navbar-menu__item">
+                        <a asp-area="" asp-controller="Home" asp-action="TopFive">Top</a>
+                    </li>
+
+                    <li class="navbar-menu__item">
+                        <a asp-area="" asp-controller="Home" asp-action="Report">Report</a>
+                    </li>
+
+
+
+
+
+
+
+                </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer>
+        <div>
+            &copy; 2019 - Verdict - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

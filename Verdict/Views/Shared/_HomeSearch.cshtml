@@ -1,0 +1,21 @@
+﻿@model Search
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="main">
+    <h1 class="main__title">
+        <a class="main__title" asp-area="" asp-controller="Home" asp-action="Index">Verdict</a>
+    </h1>
+    <h4 class="main__subtitle">the people have spoken</h4>
+       @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "main__input" }))
+       {
+
+           @Html.TextBoxFor(model => model.Term, new { placeholder = "Search for anything...", @class = "main__textbox" })
+           <input class="main__button" type="submit" value="Search">
+           <p class="main__error">
+               @Html.ValidationMessageFor(model => model.Term)
+           </p> 
+       }
+</div>
