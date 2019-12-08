@@ -1,0 +1,45 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="register-section">
+    <div class="register-main">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h1 class="register-main__title">Sign in</h1>
+            <div asp-validation-summary="All"></div>
+            <div class="register-main__email">
+                <label class="register-main__email-label" asp-for="Input.Email"></label>
+                <input class="register-main__email-input" placeholder="Email..." asp-for="Input.Email" />
+                <span class="register-main__email-validation" asp-validation-for="Input.Email"></span>
+            </div>
+            <div class="register-main__password">
+                <label class="register-main__password-label" asp-for="Input.Password"></label>
+                <input class="register-main__password-input" asp-for="Input.Password" />
+                <span class="register-main__password-validation" asp-validation-for="Input.Password"></span>
+            </div>
+            <button class="register-main__submit" type="submit">Sign in</button>
+            <span class="register-main__login">
+                Don't have have an account?
+                <a class="register-main__login-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </span>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="Input.RememberMe">
+                        <input asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <p>
+                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

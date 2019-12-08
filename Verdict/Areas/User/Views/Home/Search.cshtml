@@ -1,0 +1,145 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model Search
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<partial name="_HomeSearch" />
+
+<div class="search-section">
+    <div class="search-result">
+        <h1 class="search-result__term">@Model.Term</h1>
+
+        @if (Model.ListOfTweets.Count > 0)
+        {
+            @if (Model.TotalScore >= 80)
+            {
+                @if (Model.TotalScore >= 90)
+                {
+                    <h2 class="search-result__verdict">The Internet loves this</h2>
+                }
+                else
+                {
+                    <h2 class="search-result__verdict">The Internet thinks this is great</h2>
+                }
+                <h2 class="search-result__score very-high">@Model.TotalScore</h2>
+            }
+            else if (Model.TotalScore >= 60)
+            {
+                @if (Model.TotalScore >= 70)
+                {
+                    <h2 class="search-result__verdict">The Internet is pleased</h2>
+                }
+                else
+                {
+                    <h2 class="search-result__verdict">The Internet thinks this is okay</h2>
+                }
+                <h2 class="search-result__score high">@Model.TotalScore</h2>
+
+            }
+            else if (Model.TotalScore >= 40)
+            {
+                <h2 class="search-result__verdict">The Internet has mixed feelings</h2>
+                <h2 class="search-result__score average">@Model.TotalScore</h2>
+
+            }
+            else if (Model.TotalScore >= 20)
+            {
+                @if (Model.TotalScore >= 30)
+                {
+                    <h2 class="search-result__verdict">The Internet is not impressed</h2>
+                }
+                else
+                {
+                    <h2 class="search-result__verdict">The Internet has a low opinion</h2>
+                }
+                <h2 class="search-result__score low">@Model.TotalScore</h2>
+
+            }
+            else
+            {
+                <h2 class="search-result__verdict">The Internet is just repulsed</h2>
+                <h2 class="search-result__score very-low">@Model.TotalScore</h2>
+
+            }
+        }
+
+        <hr class="search-result__divider" align="center" />
+    </div>
+    <div class="tweet-list">
+        @if (Model.ListOfTweets.Count == 0)
+        {
+            <p class="tweet-list__none">No tweets found.</p>
+        }
+
+        @foreach (var tweet in Model.ListOfTweets)
+        {
+            <br />
+            <div class="tweet-list__item">
+
+                @if (tweet.Score.HasValue)
+                {
+                    if (Math.Round(tweet.Score.Value) != 0.5)
+                    {
+                        var rounded_score = Math.Round(tweet.Score.Value * 100);
+
+                        @if (rounded_score >= 80)
+                        {
+                            <p class="tweet-list__score very-high">@rounded_score</p>
+                        }
+                        else if (rounded_score >= 60)
+                        {
+                            <p class="tweet-list__score high">@rounded_score</p>
+                        }
+                        else if (rounded_score >= 40)
+                        {
+                            <p class="tweet-list__score average">@rounded_score</p>
+                        }
+                        else if (rounded_score >= 20)
+                        {
+                            <p class="tweet-list__score low">@rounded_score</p>
+                        }
+                        else
+                        {
+                            <p class="tweet-list__score very-low">@rounded_score</p>
+                        }
+                    }
+                }
+
+                <p class="tweet-list__text">"@tweet.Text"</p>
+
+                <div class="tweet-list-user">
+                    <p class="tweet-list-user__name">
+                        <a class="tweet-list__user" href="@tweet.TweetLink">@@@tweet.TwitterUser</a>
+                    </p>
+
+                    @if (@tweet.HoursAgo < 1)
+                    {
+                        <p class="tweet-list-user__time">less than an hour ago</p>
+                    }
+                    else if (@tweet.HoursAgo >= 24)
+                    {
+                        var days = @tweet.HoursAgo / 24;
+                        <p class="tweet-list-user__time">@days days ago</p>
+
+                    }
+                    else
+                    {
+                        <p class="tweet-list-user__time">@tweet.HoursAgo hours ago</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="result-section__save" asp-area="User" asp-controller="Home" asp-action="Collection">Save to Collection</a>
+    }
+
+</div>
+

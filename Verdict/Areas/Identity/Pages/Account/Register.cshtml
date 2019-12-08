@@ -1,0 +1,38 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-section">
+    <div class="register-main">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h1 class="register-main__title">@ViewData["Title"]</h1>
+            <div asp-validation-summary="All"></div>
+            <div class="register-main__email">
+                <label class="register-main__email-label" asp-for="Input.Email"></label>
+                <input class="register-main__email-input" placeholder="Email..." asp-for="Input.Email"/>
+                <span class="register-main__email-validation" asp-validation-for="Input.Email"></span>
+            </div>
+            <div class="register-main__password">
+                <label class="register-main__password-label" asp-for="Input.Password"></label>
+                <input class="register-main__password-input" asp-for="Input.Password"/>
+                <span class="register-main__password-validation" asp-validation-for="Input.Password"></span>
+            </div>
+            <div class="register-main__confirm">
+                <label class="register-main__confirm-label" asp-for="Input.ConfirmPassword"></label>
+                <input class="register-main__confirm-input" asp-for="Input.ConfirmPassword" />
+                <span class="register-main__confirm-validation" asp-validation-for="Input.ConfirmPassword"></span>
+            </div>
+            <button class="register-main__submit" type="submit">Create Account</button>
+            <span class="register-main__login">
+                Already have an account?
+                <a class="register-main__login-link" asp-area="Identity" asp-page="/Account/Login">Sign in</a>
+            </span>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

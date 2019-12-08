@@ -1,0 +1,96 @@
+﻿@model Reports
+
+@{
+    ViewData["Title"] = "Top";
+}
+
+
+<div class="topfive-main">
+    <h1 class="topfive-main__title">Top Searches</h1>
+    <h3 class="topfive-main__subtitle">hottest trends on the web</h3>
+</div>
+
+@if (Model.TopSearches.Count == 0)
+{
+    <p class="topfive-none">No searches found.</p>
+}
+
+<div class="topfive-list">
+    @foreach (var SearchReport in Model.TopSearches)
+    {
+        <div class="topfive-item">
+
+           <div class="topfive-item__left">
+                <h2 class="topfive-item__term">@SearchReport.Term</h2>
+                <h3 class="topfive-item__count">
+                    Searched <span>@SearchReport.Counter</span> times.
+                </h3>
+            </div>
+
+            <div class="topfive-item__mid">
+                <h2 class="topfive-item__label-score">Average score:</h2>
+                <h2 class="topfive-item__label-verdict">Verdict:</h2>
+            </div>
+
+            <div class="topfive-item__right">
+
+                @if (Model.TopSearches.Count > 0)
+                {
+                    @if (@SearchReport.avgScore >= 80)
+                    {
+                        <h2 class="topfive-item__score very-high">@SearchReport.avgScore</h2>
+
+                        @if (@SearchReport.avgScore >= 90)
+                        {
+                            <h2 class="topfive-item__verdict">The Internet loves this</h2>
+                        }
+                        else
+                        {
+                            <h2 class="topfive-item__verdict">The Internet thinks this is great</h2>
+                        }
+                    }
+                    else if (@SearchReport.avgScore >= 60)
+                    {
+                        <h2 class="topfive-item__score high">@SearchReport.avgScore</h2>
+
+                        @if (@SearchReport.avgScore >= 70)
+                        {
+                            <h2 class="topfive-item__verdict">The Internet is pleased</h2>
+                        }
+                        else
+                        {
+                            <h2 class="topfive-item__verdict">The Internet thinks this is okay</h2>
+                        }
+
+                    }
+                    else if (@SearchReport.avgScore >= 40)
+                    {
+                        <h2 class="topfive-item__score average">@SearchReport.avgScore</h2>
+
+                        <h2 class="topfive-item__verdict">The Internet has mixed feelings</h2>
+
+                    }
+                    else if (@SearchReport.avgScore >= 20)
+                    {
+                        <h2 class="topfive-item__score low">@SearchReport.avgScore</h2>
+
+                        @if (@SearchReport.avgScore >= 30)
+                        {
+                            <h2 class="topfive-item__verdict">The Internet is not impressed</h2>
+                        }
+                        else
+                        {
+                            <h2 class="topfive-item__verdict">The Internet has a low opinion</h2>
+                        }
+                    }
+                    else
+                    {
+                        <h2 class="topfive-item__score very-low">@SearchReport.avgScore</h2>
+                        <h2 class="topfive-item__verdict">The Internet is just repulsed</h2>
+
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>

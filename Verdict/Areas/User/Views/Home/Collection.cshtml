@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model Reports
+@{
+    ViewData["Title"] = "Collection";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Collection</h1>
+    <p>verdicts of the past</p>
+   
+
+
+    <div class="topfive-list">
+        @foreach (var SearchReport in Model.TopSearches)
+        {
+            <div class="topfive-item">
+
+                <div class="topfive-item__left">
+                    <h2 class="topfive-item__term">@SearchReport.Term</h2>
+                    <h3 class="topfive-item__count">
+                        Searched <span>@SearchReport.Counter</span> times.
+                    </h3>
+                </div>
+
+                <div class="topfive-item__mid">
+                    <h2 class="topfive-item__label-score">Average score:</h2>
+                    <h2 class="topfive-item__label-verdict">Verdict:</h2>
+                </div>
+
+                <div class="topfive-item__right">
+
+                    @if (Model.TopSearches.Count > 0)
+                    {
+                        @if (@SearchReport.avgScore >= 80)
+                        {
+                            <h2 class="topfive-item__score very-high">@SearchReport.avgScore</h2>
+
+                            @if (@SearchReport.avgScore >= 90)
+                            {
+                                <h2 class="topfive-item__verdict">The Internet loves this</h2>
+                            }
+                            else
+                            {
+                                <h2 class="topfive-item__verdict">The Internet thinks this is great</h2>
+                            }
+                        }
+                        else if (@SearchReport.avgScore >= 60)
+                        {
+                            <h2 class="topfive-item__score high">@SearchReport.avgScore</h2>
+
+                            @if (@SearchReport.avgScore >= 70)
+                            {
+                                <h2 class="topfive-item__verdict">The Internet is pleased</h2>
+                            }
+                            else
+                            {
+                                <h2 class="topfive-item__verdict">The Internet thinks this is okay</h2>
+                            }
+
+                        }
+                        else if (@SearchReport.avgScore >= 40)
+                        {
+                            <h2 class="topfive-item__score average">@SearchReport.avgScore</h2>
+
+                            <h2 class="topfive-item__verdict">The Internet has mixed feelings</h2>
+
+                        }
+                        else if (@SearchReport.avgScore >= 20)
+                        {
+                            <h2 class="topfive-item__score low">@SearchReport.avgScore</h2>
+
+                            @if (@SearchReport.avgScore >= 30)
+                            {
+                                <h2 class="topfive-item__verdict">The Internet is not impressed</h2>
+                            }
+                            else
+                            {
+                                <h2 class="topfive-item__verdict">The Internet has a low opinion</h2>
+                            }
+                        }
+                        else
+                        {
+                            <h2 class="topfive-item__score very-low">@SearchReport.avgScore</h2>
+                            <h2 class="topfive-item__verdict">The Internet is just repulsed</h2>
+
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+}
+else
+{
+    <div class="sign-in-prompt">
+        <h1 class="sign-in-prompt__text">
+            <a class="sign-in-prompt__link" asp-area="Identity" asp-page="/Account/Login">Sign in</a>
+            to access this feature.
+        </h1>
+    </div>
+}

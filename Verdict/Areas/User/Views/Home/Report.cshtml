@@ -1,0 +1,51 @@
+﻿@model Reports
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<div class="report-main">
+    <h1 class="report-main__title">Report</h1>
+    <h3 class="report-main__subtitle">valuable insights powered by data</h3>
+</div>
+
+@if (Model.MyCounter.Count == 0)
+{
+    <p class="search-list__none"><center>No Searches found.</center></p>
+}
+
+
+<div class="report-one">
+    <h1 class="report-big">
+        Verdict has performed <span>@Model.MyCounter[0].Counter</span> searches (and counting).
+    </h1>
+
+    @{ double buses = Math.Round((@Model.MyCounter[0].Counter / 12.0), 2); }
+
+    <h2 class="report-little">If every search was a meter in length, they would span <span>@buses school buses</span> in total.</h2>
+
+</div>
+
+<div class="report-two">
+    <h1 class="report-big">
+        Highest scoring search term: <span>@Model.MyCounter[1].MaxTerm</span>
+    </h1>
+    <h2 class="report-little">
+        With an impressive score of 
+        <span>@Model.MyCounter[1].MaxScore</span> 
+        on @Model.MyCounter[1].MaxDate.ToString("MMMM") @Model.MyCounter[1].MaxDate.Day, @Model.MyCounter[1].MaxDate.Year.
+    </h2>
+</div>
+
+<div class="report-three">
+    <h1 class="report-big">
+        Lowest scoring search term: <span>@Model.MyCounter[2].MinTerm</span>
+    </h1>
+    <h2 class="report-little">
+        With an impressive score of
+        <span>@Model.MyCounter[2].MinScore</span>
+        on @Model.MyCounter[2].MinDate.ToString("MMMM") @Model.MyCounter[2].MinDate.Day, @Model.MyCounter[2].MinDate.Year.
+    </h2>
+</div>
+
+
