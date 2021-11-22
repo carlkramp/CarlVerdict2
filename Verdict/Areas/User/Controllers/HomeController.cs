@@ -205,10 +205,10 @@ namespace Verdict.Controllers
 
             // twitter api
 
-            var CONSUMER_KEY = "C29RFifbnzZGyBSqvDkOfPLbQ";
-            var CONSUMER_SECRET = "DdYb7I786GJQL4s3YkJg4xQqX7JwGdxyuNwCkAGRGIHzLUgbOr";
-            var ACCESS_TOKEN = "885364972724858880-T0WljyvKZfb3ai403rGvGSqhSznhRLJ";
-            var ACCESS_TOKEN_SECRET = "t5GwDqS87v8fhO5Kh1bbD64cNDXZN11cMUBxm3jYoaZYt";
+            var CONSUMER_KEY = "";
+            var CONSUMER_SECRET = "";
+            var ACCESS_TOKEN = "";
+            var ACCESS_TOKEN_SECRET = "";
 
             Auth.SetUserCredentials(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 
